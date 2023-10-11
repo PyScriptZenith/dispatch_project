@@ -31,7 +31,8 @@ class Dispatch(models.Model):
     time = models.DateTimeField(verbose_name='время рассылки')
     frequency = models.CharField(max_length=50, choices=time_mode, verbose_name='периодичность рассылки')
     status = models.CharField(max_length=150, choices=status_mode, verbose_name='статус рассылки')
-    clients = models.ManyToManyField(Client, related_name='dispatches', verbose_name='рассылки клиентов')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='dispatches',
+                               verbose_name='рассылки клиента')
 
     def __str__(self):
         return f'{self.time}:{self.frequency} | {self.status}'
@@ -57,8 +58,9 @@ class Message(models.Model):
 class Logs(models.Model):
     last_attempt = models.DateTimeField(verbose_name='дата и время последней попытки')
     status = models.BooleanField(verbose_name='статус попытки')
-    server_response = models.TextField(verbose_name='ответ почтового сервера')
-    dispatch = models.ForeignKey(Dispatch, on_delete=models.CASCADE, related_name='logs', verbose_name='логи рассылки')
+    server_response = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
+    dispatch = models.ForeignKey(Dispatch, on_delete=models.CASCADE, related_name='logs',
+                                 verbose_name='логи рассылки', **NULLABLE)
 
     def __str__(self):
         return f'{self.last_attempt}: {self.status}'
