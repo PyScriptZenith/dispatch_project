@@ -1,11 +1,14 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = 'django-insecure-dk(1mmp@f3!7)vu!r+kbd5055adrfe0ber_l-+bh=g#ewe%sll'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 DEBUG = True
@@ -23,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dispatch',
+    'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -61,9 +66,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dispatch',
-        'USER': 'postgres',
-        'PASSWORD': '12345'
+        'NAME': os.getenv('DATABASES_NAME'),
+        'USER': os.getenv('DATABASES_USER'),
+        'PASSWORD': os.getenv('DATABASES_PASSWORD'),
     }
 }
 
@@ -96,7 +101,11 @@ USE_I18N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'users.User'
 
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
 
 STATIC_URL = 'static/'
 
@@ -110,3 +119,25 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
+EMAIL_HOST = 'smtp.yandex.ru'
+
+EMAIL_PORT = 465
+
+EMAIL_USE_SSL = TEMPLATES
+
+
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == '1'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv('CACHE_LOCATION'),
+    }
+}

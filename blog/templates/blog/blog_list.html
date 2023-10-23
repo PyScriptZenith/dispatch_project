@@ -6,24 +6,22 @@
         <h1 class="visually-hidden">Features examples</h1>
 
         <div class="container px-4 py-5" id="featured-3">
-            <h2 class="pb-2 border-bottom">Список Ваших рассылок</h2>
+            <h2 class="pb-2 border-bottom">Список постов Вашего блога</h2>
             <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                {% for dispatch in dispatches %}
+                {% for blog in blogs %}
                     <div class="feature col">
                         <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
                             <svg class="bi" width="1em" height="1em">
                                 <use xlink:href="#collection"/>
                             </svg>
                         </div>
-                        <h3 class="fs-2 text-body-emphasis">Рассылка для клиента: {{ dispatch.client.name }}</h3>
-                        <p class="card-text">Дата и время начала рассылки: {{ dispatch.start_time }}</p>
-                        <p class="card-text">Дата и время окончания рассылки: {{ dispatch.end_time }}</p>
-                        <p class="card-text">Частота рассылки: {{ dispatch.frequency }}</p>
-                        <p class="card-text">Статус рассылки: {{ dispatch.status }}</p>
-                        <a href="{% url 'dispatch:dispatch_detail' dispatch.pk %}" class="icon-link"> Подробнее
+                        <h3 class="fs-2 text-body-emphasis">Заголовок поста {{ blog.title }}</h3>
+                        <p class="card-text">Текст поста: {{ blog.content}}</p>
+
+                        <a href="{% url 'blog:blog_detail' blog.pk %}" class="icon-link"> Подробнее
                         </a>
                         {% if not request.user|has_group:"moderator" %}
-                            <a href="{% url 'dispatch:dispatch_update' dispatch.pk %}" class="icon-link yellow-button">
+                            <a href="{% url 'blog:blog_update' blog.pk %}" class="icon-link yellow-button">
                                 Изменить
 
                                 <svg class="bi">
@@ -32,32 +30,31 @@
                             </a>
                         {% endif %}
                      {% if not request.user|has_group:"moderator" %}
-                            <a href="{% url 'dispatch:dispatch_delete' dispatch.pk %}" class="icon-link red-button">
+                            <a href="{% url 'blog:blog_delete' blog.pk %}" class="icon-link red-button">
                                 Удалить
                                 <svg class="bi">
                                     <use xlink:href="#chevron-right"/>
                                 </svg>
                             </a>
                      {% endif %}
+
                     </div>
 
-                    {% endfor %}
-                    <div class="feature col">
+                {% endfor %}
+                <div class="feature col">
                    {% if not request.user|has_group:"moderator" %}
 
-                        <a href="{% url 'dispatch:dispatch_create' %}" class="icon-link"> Создать рассылку</a>
+                        <a href="{% url 'blog:blog_create' %}" class="icon-link"> Создать пост</a>
                     {% endif %}
-
-                    </div>
-
 
                 </div>
             </div>
         </div>
 
 
-    </main>
 
+
+    </main>
 
     </body>
     </html>

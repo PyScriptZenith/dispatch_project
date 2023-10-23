@@ -1,0 +1,30 @@
+{% extends "dispatch/base.html" %}
+{% load static %}
+{% block content %}
+    <main>
+        <h1 class="visually-hidden">Features examples</h1>
+
+        <div class="container px-4 py-5" id="featured-3">
+            <h2 class="pb-2 border-bottom">Рассылка для клиента: {{ dispatch.client.name }}
+                | email: {{ dispatch.client.email }}</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                {% for message in dispatch.messages.all %}
+                    <div class="feature col">
+                    <h3 class="fs-2 text-body-emphasis"></h3>
+                    <p class="card-text"> Тема сообщения: {{ message.title }}</p>
+                    <p class="card-text"> Текст сообщения: {{ message.message }}</p>
+                {% endfor %}
+                <p class="card-text"> Дата и время начала рассылки: {{ dispatch.start_time }}</p>
+                <p class="card-text"> Дата и окончания рассылки: {{ dispatch.end_time }}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+
+    </body>
+    </html>
+
+{% endblock %}

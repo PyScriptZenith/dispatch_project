@@ -1,0 +1,48 @@
+{% extends 'dispatch/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <h1 class="visually-hidden">Features examples</h1>
+
+    <div class="container px-4 py-5" id="featured-3">
+        <h2 class="pb-2 border-bottom">Статистика сервиса рассылок Dispatch</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                    <svg class="bi" width="1em" height="1em">
+                        <use xlink:href="#collection"/>
+                    </svg>
+                </div>
+                <h3 class="fs-2 text-body-emphasis">Количество рассылок</h3>
+                <h3>{{ count_dispatches }}</h3>
+            </div>
+            <div class="feature col">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                    <svg class="bi" width="1em" height="1em">
+                        <use xlink:href="#people-circle"/>
+                    </svg>
+                </div>
+                <h3 class="fs-2 text-body-emphasis">Количество активных рассылок</h3>
+                <h3>{{ count_active_dispatches }}</h3>
+            </div>
+            <div class="feature col">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                    <svg class="bi" width="1em" height="1em">
+                        <use xlink:href="#toggles2"/>
+                    </svg>
+                </div>
+                <h3 class="fs-2 text-body-emphasis">Количество уникальных клиентов </h3>
+                <h3>{{ count_user }}</h3>
+            </div>
+{% for blogpost in blogposts %}
+                <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis"> Статья блога | {{ blogpost.title}}</h3>
+        <p>{{ blogpost.content }}</p>
+      </div>
+            {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
