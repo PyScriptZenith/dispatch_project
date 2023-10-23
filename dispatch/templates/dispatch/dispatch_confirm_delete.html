@@ -1,0 +1,35 @@
+{% extends "dispatch/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <h1 class="visually-hidden">Features examples</h1>
+
+    <div class="container px-4 py-5" id="featured-3">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>Хотите удалить рассылку ? </p>
+                            <button type="submit" class="icon-link red-button"
+                                    href="{% url 'dispatch:dispatch_create' %}">
+                                Подтвердить
+                            </button>
+                            <a href="{% url 'dispatch:dispatch_list' %}" class="icon-link">Отмена</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+</main>
+
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "dispatch/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <h1 class="visually-hidden">Features examples</h1>
+
+    <div class="container px-4 py-5" id="featured-3">
+        <div class="row">
+            <form class="raw" method="post" enctype="multipart/form-data">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Добавление сообщения
+                        </div>
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-success" href="{% url 'dispatch:message_create' %}">
+                                {% if object %}
+                                    Сохранить
+                                {% else %}
+                                    Создать сообщение
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
+{% endblock %}

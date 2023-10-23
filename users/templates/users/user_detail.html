@@ -1,0 +1,20 @@
+{% extends "dispatch/base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="container px-4 py-5" id="featured-3">
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <div class="feature col">
+                <h3 class="fs-2 text-body-emphasis"></h3>
+                <p class="card-text"> Тема сообщения: {{ user }}</p>
+{#                <p class="card-text"> Текст сообщения: {{ message.message }}</p>#}
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+</body>
+</html>
+{% endblock %}

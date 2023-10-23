@@ -1,0 +1,26 @@
+{% extends 'dispatch/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <p>Здравствуйте!</p>
+                        <p>Для подтверждения вашей почты, пожалуйста, перейдите по следующей ссылке:</p>
+                        <p><a href="{{ verification_url }}">Подтвердить почту</a></p>
+                    </form>
+                </div>
+                <div class="card-footer"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

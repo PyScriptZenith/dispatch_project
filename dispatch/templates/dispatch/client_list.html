@@ -1,0 +1,59 @@
+{% extends "dispatch/base.html" %}
+{% load my_tags %}
+{% load static %}
+{% block content %}
+    <main>
+        <h1 class="visually-hidden">Features examples</h1>
+
+        <div class="container px-4 py-5" id="featured-3">
+            <h2 class="pb-2 border-bottom">Список Ваших клиентов</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                {% for client in clients %}
+
+                    <div class="feature col">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                            <svg class="bi" width="1em" height="1em">
+                                <use xlink:href="#collection"/>
+                            </svg>
+                        </div>
+                        <h3 class="fs-2 text-body-emphasis"> Имя клиента {{ client.name }}</h3>
+                        <a href="{% url 'dispatch:client_detail' client.pk %}" class="icon-link"> Подробнее
+                        </a>
+                          {% if not request.user|has_group:"moderator" %}
+                            <a href="{% url 'dispatch:client_update' client.pk %}" class="icon-link yellow-button">
+                                Изменить
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                        {% endif %}
+                          {% if not request.user|has_group:"moderator" %}
+                            <a href="{% url 'dispatch:client_delete' client.pk %}" class="icon-link red-button">
+                                Удалить
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right"/>
+                                </svg>
+                            </a>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+                <div class="feature col">
+                   {% if not request.user|has_group:"moderator" %}
+
+                        <a href="{% url 'dispatch:client_create' %}" class="icon-link"> Создать клиента</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    </body>
+    </html>
+{% endblock %}
